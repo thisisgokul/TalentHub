@@ -3,6 +3,7 @@ const customError = require("../utils/errorHandler");
 const generateToken=require("../utils/generateToken");
 const bcryt = require("bcrypt");
 
+
 const signup = async (req, res, next) => {
     const { name, email, password } = req.body
     try {
@@ -39,6 +40,8 @@ const signin= async(req,res,next)=>{
 
 }
 
+  
+
 const signout=async(req,res)=>{
     try {
         await res.clearCookie('token').status(200).json('signout successfully');
@@ -46,5 +49,5 @@ const signout=async(req,res)=>{
         res.json(error);
     }
 }
-
+ 
 module.exports ={ signup,signin,signout};

@@ -56,3 +56,10 @@ export const socialMedia=[
         icon:<BsFacebook/>
     }
 ]
+
+export const redirector =(currentUser,navigate)=>{
+    if(!currentUser){
+        navigate("/");
+    }
+    
+} 

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../compoents/Navbar";
 import Indexprofile from "../sections/Indexprofile";
 import SearchAndSelect from "../compoents/SearchAndSelect";
+import { redirector } from "../constants";
 import JobListing from "../sections/JobListing";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +10,9 @@ import { useNavigate } from "react-router-dom";
 const IndexPage = () => {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  
   useEffect(() => {
-    if (!currentUser) {
-      navigate("/");
-    }
+   redirector(currentUser,navigate)
   }, [currentUser, navigate]);
 
   return (

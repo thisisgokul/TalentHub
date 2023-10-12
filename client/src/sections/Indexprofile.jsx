@@ -25,7 +25,7 @@ const Indexprofile = () => {
       </h2>
       <div className="flex items-center justify-center">
         <img
-          src="https://media.istockphoto.com/id/1282565926/photo/business-man-stock-photo.jpg?s=612x612&w=0&k=20&c=cV0YvjBhjpEVlnFi4Fy38uTt_DfHxXcxErx6ETHwk_Q="
+        src={currentUser&& currentUser.profilepicture}
           alt="profileim"
           className="rounded-full w-24 h-24"
         />
