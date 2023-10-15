@@ -2,30 +2,36 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../compoents/Navbar";
 import { Profileform } from "../compoents/Profileform";
 import { AiFillEdit } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { redirector } from "../constants";
+import { app } from "../firebase";
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../firebase";
+import {
+  deleteAccountFail,
+  deleteAccountSuccess,
+  delteAccountStart,
+} from "../redux/userSlice";
+import DeleteBox from "../compoents/DeleteBox";
+import axios from "axios";
 
 const ProfilePage = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(undefined);
   const [uploadpercentage, setUploadPercentage] = useState(0);
+  const [showDeleteConfirm, SetShowDeleteConfirm] = useState(false);
   const [uploadError, setUploadError] = useState(null);
   const [formData, setFormdata] = useState({});
 
   useEffect(() => {
     redirector(currentUser, navigate);
-    // if(selectedFile){
-    //   handleImageUpload(selectedFile)
-    // }
   }, [currentUser, navigate]);
 
   const handleImageUpload = async (image) => {
@@ -35,7 +41,7 @@ const ProfilePage = () => {
       const storageRef = ref(storage, fileName);
       const uploadTask = uploadBytesResumable(storageRef, image);
       uploadTask.on(
-        "state_changed",
+        "statechanged",
         (snapshot) => {
           const progess =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -51,6 +57,28 @@ const ProfilePage = () => {
         }
       );
     } catch (error) {}
+  };
+
+  if (!currentUser) {
+    return null;
+  }
+
+  const showDeleteDialog = () => {
+    SetShowDeleteConfirm(true);
+  };
+
+  const hideDeleteDialog = () => {
+    SetShowDeleteConfirm(false);
+  };
+
+  const deleteAccount = () => {
+    try {
+      dispatch(delteAccountStart());
+      const { data } = axios.delete(`/deleteaccount/${currentUser._id}`);
+      dispatch(deleteAccountSuccess(data));
+    } catch (error) {
+      dispatch(deleteAccountFail(error));
+    }
   };
 
   return (
@@ -107,7 +135,10 @@ const ProfilePage = () => {
                   >
                     Upload
                   </button>
-                  <button className="bg-red-700 px-7 py-1 mt-2 text-white rounded-full transform hover:scale-105 transition-transform">
+                  <button
+                    onClick={showDeleteDialog}
+                    className="bg-red-700 px-7 py-1 mt-2 text-white rounded-full transform hover:scale-105 transition-transform"
+                  >
                     Deactivate
                   </button>
                 </div>
@@ -122,9 +153,15 @@ const ProfilePage = () => {
                   currentUser={currentUser}
                   formData={formData}
                   setFormdata={setFormdata}
+                  loading={loading}
                 />
               </div>
             </div>
+            <DeleteBox
+              onCancel={hideDeleteDialog}
+              isVisible={showDeleteConfirm}
+              onDelete={deleteAccount}
+            />
           </div>
         </div>
       )}

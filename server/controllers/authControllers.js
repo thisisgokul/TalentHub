@@ -40,7 +40,6 @@ const signin= async(req,res,next)=>{
 
 }
 
-  
 
 const signout=async(req,res)=>{
     try {

@@ -7,8 +7,7 @@ import IndexPage from './pages/IndexPage';
 import axios from 'axios';
 import ProfilePage from './pages/ProfilePage';
 axios.defaults.withCredentials=true;;
-axios.defaults.baseURL="http://localhost:5000/api/v1";
-
+axios.defaults.baseURL="http://localhost:5000/api/v1"; 
 const App = () => {
   return (
     <Routes>
