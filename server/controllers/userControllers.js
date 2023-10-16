@@ -58,4 +58,4 @@ const getAllUsers=async(req,res,next)=>{
   }
 }
 
-module.exports={updateProfile,getAllUsers,deleteAccount}
+module.exports={updateProfile,getAllUsers,deleteAccount} 

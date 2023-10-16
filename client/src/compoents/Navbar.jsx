@@ -2,8 +2,11 @@ import React from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../redux/userSlice";
 import logo2 from "../assets/logo2.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const navigation = [
   { name: "Home", destination: "index", current: true },
@@ -17,6 +20,17 @@ function classNames(...classes) {
 }
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
+
+  const handleSignout = async () => {
+    try {
+      await axios.get("/signout");
+      dispatch(signout());
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Disclosure as="nav" className="bg-gray-50 border-2">
       {({ open }) => (
@@ -77,7 +91,7 @@ const Navbar = () => {
 
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={currentUser && currentUser.profilepicture}
                         alt=""
                       />
                     </Menu.Button>
@@ -95,7 +109,7 @@ const Navbar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to={"/"}
+                            to={"/profile"}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
@@ -122,6 +136,7 @@ const Navbar = () => {
                         {({ active }) => (
                           <Link
                             to={"/"}
+                            onClick={handleSignout}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
