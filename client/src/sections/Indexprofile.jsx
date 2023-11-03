@@ -21,7 +21,7 @@ const Indexprofile = () => {
   return (
     <section className="px-16 py-14 rounded-xl mt-4 border mx-6 bg-gray-50 shadow-md">
       <h2 className="text-center font-bold text-xl font-montserrat mb-4">
-        Profile
+        Account
       </h2>
       <div className="flex items-center justify-center">
         <img

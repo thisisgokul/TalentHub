@@ -7,6 +7,7 @@ import JobListing from "../sections/JobListing";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+
 const IndexPage = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [searchAndSelect, setSearchAndSelect] = useState({});
@@ -20,8 +21,10 @@ const IndexPage = () => {
     <>
       {currentUser && (
         <>
+          <div className="fixed top-0 w-full z-50 ">
           <Navbar />
-          <h2 className="mx-10 mt-4 text-lg font-montserrat">
+          </div>
+          <h2 className="mx-10 mt-24 text-lg font-montserrat">
             Connect Experts in Dev, AI, Design, Sales, Marketing, Admin &
             Support on Our Portal!
           </h2>
@@ -40,7 +43,7 @@ const IndexPage = () => {
               <Indexprofile />
             </section>
 
-            <section className="w-full sm:w-2/3 border-2 border-gray-200 rounded-xl">
+            <section className="w-full sm:w-2/3 border-2 border-gray-200 rounded-xl bg-slate-100">
               <JobListing searchAndSelect={searchAndSelect} />
             </section>
           </div>

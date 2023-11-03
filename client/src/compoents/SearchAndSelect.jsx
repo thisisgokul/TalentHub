@@ -32,7 +32,7 @@ const SearchAndSelect = ({ searchAndSelect, setSearchAndSelect }) => {
           className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg pl-10 focus:outline-none"
           placeholder="Enter your search term"
         />
-        <div className="absolute top-4 bg-green-600 rounded-lg text-white px-2 py-1 right-4 pl-3 pt-2">
+        <div className="absolute top-4 cursor-pointer bg-green-600 rounded-lg text-white px-2 py-1 right-4 pl-3 pt-2">
           <AiOutlineSearch size={31} />
         </div>
       </div>
@@ -43,10 +43,10 @@ const SearchAndSelect = ({ searchAndSelect, setSearchAndSelect }) => {
           id="select"
           className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none font-medium"
         >
-          <option value="">select</option>
+          <option value="">All category</option>
 
           {uniqueCategories.map((category, index) => (
-            <option key={index} value={category}>
+            <option className="bg-green-600 text-white text-lg" key={index} value={category}>
               {category}
             </option>
           ))}

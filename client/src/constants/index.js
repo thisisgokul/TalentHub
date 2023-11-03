@@ -59,7 +59,7 @@ export const socialMedia=[
 
 export const redirector =(currentUser,navigate)=>{
     if(!currentUser){
-        navigate("/");
+        navigate("/index");
     }
     
 } 

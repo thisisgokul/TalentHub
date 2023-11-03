@@ -85,7 +85,7 @@ const ProfilePage = () => {
     <section className="bg-slate-200 ">
       <Navbar />
       {currentUser && (
-        <div className=" shadow-xl bg-white rounded-xl my-16 sm:my-8 mx-10 ">
+        <div className=" shadow-xl bg-white rounded-xl my-16 sm:my-8 mx-4 sm:mx-10 ">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/4 p-4 relative">
               <div className=" p-4 py-4 sm:py-20 flex flex-col items-center justify-center">

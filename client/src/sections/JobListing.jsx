@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { AiFillDollarCircle } from "react-icons/ai";
+import { BsCurrencyRupee } from "react-icons/bs";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import axios from "axios";
+import Loader from "../compoents/Loader";
+import { Link } from "react-router-dom";
 
 const JobListing = ({ searchAndSelect }) => {
   const [allData, setAllData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(2);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("/alldata").then(({ data }) => {
-      setAllData(data);
-    });
+    try {
+      axios.get("/alldata").then(({ data }) => {
+        setAllData(data);
+        setLoading(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   }, []);
 
   const search = (searchAndSelect.search || "").toLowerCase();
@@ -21,14 +32,26 @@ const JobListing = ({ searchAndSelect }) => {
       data.description && data.category.toLowerCase().includes(searchTerm)
   );
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <section className="mx-0 sm:mx-7 shadow-lg mt-4">
-      {filteredData.length === 0 ? (
+    <section className="mx-0 sm:mx-7 shadow-lg mt-4 bg-slate-100">
+      {loading && (
+        <div className="flex items-center justify-center mt-24">
+          <Loader size={33} />
+          please wait..
+        </div>
+      )}
+      {currentItems.length === 0 && !loading ? (
         <div className="text-center text-xl mt-6 text-red-500">
           No results found
         </div>
       ) : (
-        filteredData.map((data, index) => (
+        currentItems.map((data, index) => (
           <div
             key={index}
             className="bg-white rounded-lg p-6 border border-gray-200 my-4"
@@ -44,36 +67,62 @@ const JobListing = ({ searchAndSelect }) => {
                   {data.category}
                 </h1>
               </div>
-              <h2 className="text-sm sm:text-2xl my-3 font-palanquin font-bold ">
+              <h2 className="text-lg sm:text-2xl my-3 font-palanquin font-bold ">
                 {data.name}
               </h2>
-              <p className="info-text font-normal text-sm sm:text-md">
+              <p className="text-md text-gray-500 my-4 font-normal">
                 {data.description &&
-                  data.description.split(" ").slice(0, 30).join(" ")}
+                  data.description.split(" ").slice(0, 32).join(" ")}
                 {data.description &&
                   data.description.split(" ").length > 30 && (
-                    <span className="text-blue-500"> Read more...</span>
+                    <Link to={"/singleprofilepage/" + data._id}>
+                      <span className="text-blue-500"> Explor more...</span>
+                    </Link>
                   )}
               </p>
 
               <div className="flex">
                 <p className="flex sm:flex-1 my-2 text-xl font-medium">
                   Charge
-                  <AiFillDollarCircle className="mt-2 mx-1 text-xl text-green-700" />
+                  <BsCurrencyRupee className="mt-2 mx-1 text-xl text-green-700" />
                   {data.serviceCharge}
                 </p>
-                <button className="sm:flex hidden btnHover bg-secondary py-0 sm:py-3 px-2 rounded-xl text-white">
+                <Link to={"/singleprofilepage/" + data._id}>
+                  <button className="sm:flex hidden btnHover bg-secondary py-3  px-2 rounded-xl text-white text-sm">
+                    <BsFillArrowRightSquareFill className="mt-1 mx-1" />
+                    Hire ME
+                  </button>
+                </Link>
+              </div>
+              <Link to={"/singleprofilepage/" + data._id}>
+                <button className="sm:hidden flex btnHover bg-secondary py-2 px-2 rounded-xl text-white">
                   <BsFillArrowRightSquareFill className="mt-1 mx-1" />
                   Hire ME
                 </button>
-              </div>
-              <button className="sm:hidden flex btnHover bg-secondary py-2 sm:py-3 px-2 rounded-xl text-white">
-                <BsFillArrowRightSquareFill className="mt-1 mx-1" />
-                Hire ME
-              </button>
+              </Link>
             </div>
           </div>
         ))
+      )}
+      {!loading && (
+        <div className="flex items-center justify-center gap-4 py-3">
+          <button
+            className="px-3 py-1 bg-gray-700 text-white text-md rounded-lg "
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            &lt; Back
+          </button>
+          <button
+            className="px-3 py-1 bg-red-700 text-white text-md rounded-lg "
+            onClick={() => paginate(currentPage + 1)}
+            disabled={
+              currentPage === Math.ceil(filteredData.length / itemsPerPage)
+            }
+          >
+            Next &gt;
+          </button>
+        </div>
       )}
     </section>
   );

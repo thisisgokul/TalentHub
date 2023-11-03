@@ -25,7 +25,7 @@ const LoginPage = () => {
       dispatch(singnInStart());
       const { data } = await axios.post("/signin", formdata);
       dispatch(singnInSuccess(data));
-      navigate("/index");
+      navigate("/");
     } catch (error) {
       dispatch(singnInFail());
     }

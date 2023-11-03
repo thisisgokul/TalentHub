@@ -5,18 +5,30 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import IndexPage from './pages/IndexPage';
 import axios from 'axios';
+import { io } from "socket.io-client"
 import ProfilePage from './pages/ProfilePage';
-axios.defaults.withCredentials=true;;
-axios.defaults.baseURL="http://localhost:5000/api/v1"; 
+import SingleProfile from './pages/SingleProfile';
+import Myworkers from './pages/Myworkers';
+import SocketContext from './socket/SocketContext';
+
+
+axios.defaults.withCredentials = true;;
+axios.defaults.baseURL = "http://localhost:5000/api/v1";
+const socket = io("http://localhost:5000")
 const App = () => {
   return (
-    <Routes>
-      <Route path='/' element={<LandingPage />} />
-      <Route path='/signup' element={<SignupPage />} />
-      <Route path='/signin' element={<LoginPage />} />
-      <Route path='/index' element={<IndexPage />} />
-      <Route path='/profile' element={<ProfilePage/>} />
-    </Routes>
+    <SocketContext.Provider value={socket}>
+      <Routes>
+        <Route path='/' element={<IndexPage />} />
+        <Route path='/index' element={<LandingPage />} />
+        <Route path='/signup' element={<SignupPage />} />
+        <Route path='/signin' element={<LoginPage />} />
+        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/singleprofilepage/:id' element={<SingleProfile />} />
+        <Route path='/myworkers' element={<Myworkers />} />
+
+      </Routes>
+    </SocketContext.Provider>
   )
 }
 

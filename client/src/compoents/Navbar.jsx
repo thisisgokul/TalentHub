@@ -5,23 +5,13 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../redux/userSlice";
 import logo2 from "../assets/logo2.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-
-const navigation = [
-  { name: "Home", destination: "index", current: true },
-  { name: "Profile", destination: "profile", current: false },
-  { name: "Workspace", destination: "profile", current: false },
-  { name: "workers", destination: "profile", current: false },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
+  const location = useLocation();
 
   const handleSignout = async () => {
     try {
@@ -31,6 +21,20 @@ const Navbar = () => {
       console.log(error);
     }
   };
+
+  const navigation = [
+    { name: "Home", destination: "index", route: "/", current: false },
+    { name: "Profile", destination: "profile", route: "/profile", current: false },
+    { name: "My-workers", destination: "myworkers", route: "/myworkers", current: false },
+    { name: "Workers", destination: "workers", route: "/workers", current: false },
+  ];
+
+  const currentPath = location.pathname;
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+
   return (
     <Disclosure as="nav" className="bg-gray-50 border-2">
       {({ open }) => (
@@ -61,21 +65,24 @@ const Navbar = () => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={`/${item.destination}`}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-secondary"
-                            : "text-gray-600 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
+                    {navigation.map((item) => {
+                      item.current = item.route === currentPath;
+                      return (
+                        <Link
+                          key={item.name}
+                          to={item.route}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-950 text-secondary"
+                              : "text-gray-600 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-md font-medium"
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.name}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -88,7 +95,6 @@ const Navbar = () => {
                       <span className="hidden md:inline-block font-semibold px-2 py-1">
                         Account
                       </span>
-
                       <img
                         className="h-8 w-8 rounded-full"
                         src={currentUser && currentUser.profilepicture}
@@ -155,21 +161,24 @@ const Navbar = () => {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={`/${item.destination}`}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-secondary"
-                      : "text-gray-600 hover:bg-gray-700 hover:text-white",
-                    "rounded-md px-3 py-2 text-sm font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                item.current = item.route === currentPath;
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.route}
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-900 text-secondary"
+                        : "text-gray-600 hover:bg-gray-700 hover:text-white",
+                      "rounded-md px-3 py-2 text-sm font-medium"
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </div>
           </Disclosure.Panel>
         </>
