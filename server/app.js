@@ -39,5 +39,5 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log('socket io connected successfully.');
-  socketServer(socket)
+  socketServer(socket,io)
 });

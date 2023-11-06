@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiPhoneCall } from "react-icons/bi";
-export const Ringing = () => {
+import ringtone from "../../assets/audio/ringtone.mp3";
+
+export const Ringing = ({ call, setCall }) => {
+  const { receivingCalls, callEnded } = call;
+  const [isVisible, setIsVisible] = useState(false);
+  const [timer, setTimer] = useState(0);
+
+  let interval;
+  const handleTimer = () => {
+    interval = setInterval(() => {
+      setTimer((prev) => prev + 1);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    setIsVisible(true);
+    if (timer < 15) {
+      handleTimer();
+    } else {
+      setCall({ ...call, receivingCalls: false });
+    }
+    return () => clearInterval(interval);
+  }, [timer]);
   return (
-    <div className="bg-green-600  text-white p-4 flex justify-center items-center shadow-4xl rounded-2xl w-10/12 sm:w-[300px] gap-4 sm:gap-3 fixed top-20 right-8 z-50">
+    <div
+      className={`bg-green-600 text-white p-4 flex justify-center items-center shadow-4xl rounded-2xl w-10/12 sm:w-[300px] gap-4 sm:gap-3 fixed top-20 right-8 z-50 transition-transform ${
+        isVisible ? "translate-x-0" : "translate-x-full"
+      }`}
+    >
       <div className="flex-shrink-0">
         <img
           className="w-16 h-16 rounded-2xl"
@@ -15,17 +41,17 @@ export const Ringing = () => {
           sam calling...
         </h2>
         <div className="flex items-center gap-7">
-          
           <div className="flex gap-3 justify-center items-center">
             <button className="bg-gray-800 text-green-500 hover:text-green-600 hover:bg-black rounded-full p-2 transform hover:scale-105 transition-transform">
               <BiPhoneCall size={24} />
             </button>
             <button className="bg-gray-800 text-red-500 hover:text-red-600 hover:bg-black rounded-full p-2 transform hover:scale-105 transition-transform">
-             Decline
+              Decline
             </button>
-            </div>
+          </div>
         </div>
       </div>
+      <audio src={ringtone} autoPlay loop></audio>
     </div>
   );
 };
