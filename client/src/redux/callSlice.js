@@ -5,7 +5,7 @@ const initialState={
 
 }
 
-const workersSlice=createSlice({
+const callSlice=createSlice({
     name:"myworkers",
     initialState,
     reducers:{
@@ -15,5 +15,5 @@ const workersSlice=createSlice({
     }
 })
 
-export const {setWorkersData}=workersSlice.actions;
-export default workersSlice.reducer;
+export const {setWorkersData}=callSlice.actions;
+export default callSlice.reducer;

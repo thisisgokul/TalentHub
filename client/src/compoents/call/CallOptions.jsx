@@ -4,7 +4,7 @@ import { BsCameraVideoOffFill,BsFillMicMuteFill } from "react-icons/bs";
 
 export const CallOptions = () => {
   return (
-    <div className=" bottom-0 w-full flex justify-center absolute mb-32">
+    <div className=" bottom-0 w-full flex justify-center  mb-32">
       <ul className="flex items-center bg-slate-100 px-6 rounded-lg py-1 justify-between gap-10 text-3xl sm:gap-24">
         <li>
           <button>

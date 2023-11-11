@@ -3,13 +3,14 @@ import { Ringing } from '../compoents/call/Ringing';
 import { AiFillLock } from "react-icons/ai"
 import { CallOptions } from '../compoents/call/CallOptions';
 
-export const Call = ({ call, setCall, callAccepted,userVideo,myVideo,stream }) => {
+export const Call = ({ call, setCall, callAccepted,userVideo,myVideo,stream ,answerCall}) => {
   const { receivingCalls, callEnded } = call
   const [showActions,setShowActions]=useState(false)
 
   return (
     <div onMouseEnter={()=>setShowActions(true)} onMouseLeave={()=>setShowActions(false)}
-    className='text-white  bg-[#060017]  min-h-screen w-full  top-20 z-50 flex flex-col '>
+    className={`text-white  bg-[#060017]  min-h-screen w-full  top-20 z-50 flex flex-col
+   `}>
       <div className='px-6 mt-3 flex items-center gap-3'>
         <AiFillLock size={33}/>
         <h2 className='text-lg'>End-to-end-encryption</h2>
@@ -21,7 +22,7 @@ export const Call = ({ call, setCall, callAccepted,userVideo,myVideo,stream }) =
       <div className='min-h-screen ' >
         {/*user video*/}
         <div className=' flex justify-center '>
-        <video ref={userVideo} playsInline autoPlay muted className=' mt-0 h-[550px] w-full bg-red-600'></video>
+        <video ref={userVideo} playsInline autoPlay muted className=' mt-0 h-[550px] w-full '></video>
 
         </div>
         <div>
@@ -30,7 +31,7 @@ export const Call = ({ call, setCall, callAccepted,userVideo,myVideo,stream }) =
       </div>
 
       {receivingCalls && !callAccepted && (
-        <Ringing call={call} setCall={setCall}/>
+        <Ringing call={call} setCall={setCall} answerCall={answerCall}/>
       )}
     </div>
     
