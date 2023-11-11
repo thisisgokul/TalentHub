@@ -13,8 +13,8 @@ import SocketContext from './socket/SocketContext';
 
 
 axios.defaults.withCredentials = true;;
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
-const socket = io("http://localhost:5000")
+axios.defaults.baseURL = "https://talenthubserver.onrender.com/api/v1";
+const socket = io("https://talenthubserver.onrender.com")
 const App = () => {
   return (
     <SocketContext.Provider value={socket}>
