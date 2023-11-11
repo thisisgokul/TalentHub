@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
   credentials: true,
-  origin: 'https://talent-hub-sigma.vercel.app'
+  origin: 'http://localhost:3000'
 }));
 app.use(cookieparser());
 
@@ -33,7 +33,7 @@ server.listen(port, () => {  // Use server.listen instead of app.listen
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: { 
-    origin: 'https://talent-hub-sigma.vercel.app'
+    origin: 'http://localhost:3000'
   }
 });
 

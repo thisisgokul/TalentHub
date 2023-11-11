@@ -12,9 +12,9 @@ import Myworkers from './pages/Myworkers';
 import SocketContext from './socket/SocketContext';
 
 
-axios.defaults.withCredentials = true;;
-axios.defaults.baseURL = "https://talenthubserver.onrender.com/api/v1";
-const socket = io("https://talenthubserver.onrender.com")
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:5000/api/v1";
+const socket = io("http://localhost:5000")
 const App = () => {
   return (
     <SocketContext.Provider value={socket}>
