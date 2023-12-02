@@ -23,8 +23,8 @@ const socketServer= (socket,io)=>{
         console.log("user joined the conversation :",conversation);
     })
 
-    // call
-    socket.on("call user", (data) => {
+      // call
+      socket.on("call user", (data) => {
         let userId = data.userToCall;
         let userSocket = onlineUsers.find((user) => user.userId === userId);
     
@@ -38,16 +38,12 @@ const socketServer= (socket,io)=>{
             });
         } else {
             console.error("User not found:", userId);
-            // Handle the case where the user is not found, for example, by sending an error message.
-            // io.to(socket.id).emit("user not found", { userId });
+          
         }
 
         
     });
     
-    socket.on("answer call", (data) => {
-        io.to(data.to).emit("call accepted", data.signal);
-    })
 
     
 }

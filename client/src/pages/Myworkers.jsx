@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../compoents/Navbar";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import Typewriter from "typewriter-effect";
 import axios from "axios";
 import Loader from "../compoents/Loader";
 import { Call } from "../sections/Call";
-import { HiStatusOnline, HiStatusOffline } from "react-icons/hi";
+import {  HiStatusOffline } from "react-icons/hi";
 import { RiRadioButtonLine } from "react-icons/ri";
 import SocketContext from "../socket/SocketContext";
 import Peer from "simple-peer";
@@ -24,13 +24,11 @@ function Myworkers({ socket }) {
   const [loading, setLoading] = useState(true);
   const [onlineWorkers, setOnlineWorkers] = useState([]);
   const [call, setCall] = useState(callData);
-  const [stream, setStream] = useState();
-  const [callAccepted, setCallAccepted] = useState(false);
-  const { receivingCalls, callEnded, socketId } = call;
+  const [callAccepted] = useState(false);
+  const {   socketId } = call; 
+ 
 
-  const myVideo = useRef();
-  const userVideo = useRef();
-  const connectionRef=useRef();
+
 
   useEffect(() => {
     try {
@@ -55,7 +53,7 @@ function Myworkers({ socket }) {
 
   // call
   useEffect(() => {
-    setupMedia();
+   
     socket.on("get-socketid", (id) => {
       setCall({ ...call, socketId: id });
     });
@@ -69,11 +67,12 @@ function Myworkers({ socket }) {
         receivingCalls: true,
       });
     });
-  }, [setCall]);
+  }, [setCall,call,socket]);
+
+  
 
   // call user
   const callUser = (worker) => {
-    enableMedia();
     setCall({
       ...call,
       name: worker.workername,
@@ -83,7 +82,6 @@ function Myworkers({ socket }) {
     const peer = new Peer({
       initiator: true,
       trickle: true,
-      stream: stream,
     });
     peer.on("signal", (data) => {
       socket.emit("call user", {
@@ -95,49 +93,20 @@ function Myworkers({ socket }) {
       });
     });
 
-    peer.on("stream",(stream)=>{
-      userVideo.current.srcObject=stream  
-    });
-    socket.on("call accepted",(signal)=>{
-      setCallAccepted(true);
-      peer.signal(signal);
-    })
-    connectionRef.current=peer;
   };
+  
   // answer call function
   const answerCall=()=>{
-    enableMedia()
-    setCallAccepted(true);
-    const peer = new Peer({
-      initiator: false,
-      trickle: true,
-      stream: stream,
-    });
-    peer.on("signal",(data)=>{
-      console.log(data);
-      socket.emit("answer call",{signal:data, to:call.socketId})
-    });
-    peer.on("stream",(stream)=>{userVideo.current.srcObject=stream});
-    peer.signal(call.signal);
-    connectionRef.current = peer;
-  }
-
-  const setupMedia = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        setStream(stream);
-      });
+    window.location.href = `/myroom/${currentUser._id}`;
   };
 
-  const enableMedia = () => {
-    myVideo.current.srcObject = stream;
-  };
-
+ 
   const joinConversation = (worker) => {
     socket.emit("join conversation", worker.initialId);
+    callUser(worker)
+    window.location.href=`/myroom/${worker.initialId}`;
 
-    callUser(worker);
+    
   };
 
   return (
@@ -226,9 +195,6 @@ function Myworkers({ socket }) {
           call={call}
           setCall={setCall}
           callAccepted={callAccepted}
-          myVideo={myVideo}
-          userVideo={userVideo}
-          stream={stream}
           answerCall={answerCall}
         />
       </div>

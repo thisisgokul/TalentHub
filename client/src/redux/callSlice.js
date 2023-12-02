@@ -1,19 +1,27 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState={
-    myWorkers:null
+    callData: {
+        socketId: '',
+        receivingCalls: false,
+        callEnded: false,
+      },
+      callAccepted: false,
 
 }
 
 const callSlice=createSlice({
-    name:"myworkers",
+    name:"calling",
     initialState,
     reducers:{
-        setWorkersData:(state,action)=>{
-            state.myWorkers=action.payload
-        },
+        setCallData: (state, action) => {
+            state.callData = action.payload;
+          },
+          setCallAccepted: (state, action) => {
+            state.callAccepted = action.payload;
+          },
     }
 })
 
-export const {setWorkersData}=callSlice.actions;
+export const {setCallAccepted,setCallData}=callSlice.actions;
 export default callSlice.reducer;

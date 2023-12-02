@@ -22,7 +22,7 @@ app.use(cors({
 }));
 app.use(cookieparser());
 
-// Routes
+// Routes 
 app.use('/api/v1', authRouter);
 
 server.listen(port, () => {  // Use server.listen instead of app.listen

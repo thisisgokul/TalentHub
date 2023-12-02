@@ -82,11 +82,9 @@ const singleUserDataid = async (req, res) => {
   }
 }
 
+
 const stripePayment = async (req, res) => {
   const { price } = req.body;
-  const exchangeRate = 83.12;
-
-  const priceInUSD = price / exchangeRate + 3;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -94,11 +92,11 @@ const stripePayment = async (req, res) => {
       line_items: [
         {
           price_data: {
-            currency: "usd",
+            currency: "usd", 
             product_data: {
-              name: "TalentHub",
+              name: "TalentHub", 
             },
-            unit_amount: Math.round(priceInUSD * 100),
+            unit_amount: Math.round(price * 100),
           },
           quantity: 1,
         },
@@ -114,6 +112,7 @@ const stripePayment = async (req, res) => {
     res.status(500).send({ error: "Unable to create checkout session" });
   }
 };
+
 
 const razorpayPayment = async (req, res, next) => {
   try {

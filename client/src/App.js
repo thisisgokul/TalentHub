@@ -10,6 +10,7 @@ import ProfilePage from './pages/ProfilePage';
 import SingleProfile from './pages/SingleProfile';
 import Myworkers from './pages/Myworkers';
 import SocketContext from './socket/SocketContext';
+import { CallSection } from './sections/CallSection';
 
 
 axios.defaults.withCredentials = true;
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/singleprofilepage/:id' element={<SingleProfile />} />
         <Route path='/myworkers' element={<Myworkers />} />
+        <Route path='/myroom/:roomId' element={<CallSection/>} />
 
       </Routes>
     </SocketContext.Provider>

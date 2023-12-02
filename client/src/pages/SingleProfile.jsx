@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Typewriter from "typewriter-effect";
 import { loadStripe } from "@stripe/stripe-js";
 import logo2 from "../assets/logo2.png";
+import {  useSelector } from "react-redux";
 
 const SingleProfile = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const SingleProfile = () => {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
  
 
   useEffect(() => {
@@ -50,7 +52,7 @@ const SingleProfile = () => {
 
 const handleRazorpayPayment=async()=>{
   try {
-    
+   
     const response = await axios.post("/payment-razorpay", {
       amount: user.serviceCharge,
     });
@@ -78,31 +80,33 @@ const handleRazorpayPayment=async()=>{
   }
 }
 
-  const handleStripePayment = async () => {
-    try {
-      const stripe = await loadStripe(
-        "pk_test_51O3DDUSGefHjxGi1pvprrsh4OoUYqc2RBAuUtu2OvJHwnfxwWlma5szvztZkNbKLtyU2mRg7Y28Ov2Xs5Wzjkait00JIgsWeCr"
-      );
-      const response = await axios.post("/payment-stripe", {
-        price: user.serviceCharge,
-      });
-      
-      if(response.data.id){
-        getMyWorkers();
-      }
-      const sessionId = response.data.id;
+const handleStripePayment = async () => {
+  try {
+    const stripe = await loadStripe(
+      "pk_test_51O3DDUSGefHjxGi1pvprrsh4OoUYqc2RBAuUtu2OvJHwnfxwWlma5szvztZkNbKLtyU2mRg7Y28Ov2Xs5Wzjkait00JIgsWeCr"
+    );
+    const response = await axios.post("/payment-stripe", {
+      price: user.serviceCharge,
+    });
 
-      const result = await stripe.redirectToCheckout({
-        sessionId, 
-      });
-      
-      if (result.error) {
-        console.error("Error starting Stripe checkout:", result.error);
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.data.id) {
+      getMyWorkers();
     }
-  };
+
+    const sessionId = response.data.id;
+
+    const result = await stripe.redirectToCheckout({
+      sessionId,
+    });
+
+    if (result.error) {
+      console.error("Error starting Stripe checkout:", result.error.message);
+    }
+  } catch (error) {
+    console.error("Error in handleStripePayment:", error.message);
+  }
+};
+
 
   const getMyWorkers=async()=>{
     try {
@@ -156,20 +160,29 @@ const handleRazorpayPayment=async()=>{
               <h2 className="text-xl font-semibold text-gray-700 font-montserrat">
                 Payment
               </h2>
-              <button
-              onClick={handleRazorpayPayment}
-              className="my-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded flex items-center justify-center hover:scale-105 transition-transform">
-                <span className="mr-2 text-lg"> Pay with Razorpay</span>
-                <SiRazorpay size={30} />
-              </button>
-              <h3 className="text-center">---OR---</h3>
-              <button
-                onClick={handleStripePayment}
-                className="bg-green-600 my-2 hover:bg-green-700  text-white font-bold py-3 px-4 rounded flex items-center justify-center hover:scale-105 transition-transform"
-              >
-                <span className="mr-2 text-lg">Pay with Stripe</span>
-                <BsStripe size={30} />
-              </button>
+              {!currentUser || currentUser._id !== id ? (
+              <>
+                <button
+                  onClick={handleRazorpayPayment}
+                  className="my-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded flex items-center justify-center hover:scale-105 transition-transform"
+                >
+                  <span className="mr-2 text-lg"> Pay with Razorpay</span>
+                  <SiRazorpay size={30} />
+                </button>
+                <h3 className="text-center">---OR---</h3>
+                <button
+                  onClick={handleStripePayment}
+                  className="bg-green-600 my-2 hover:bg-green-700 text-white font-bold py-3 px-4 rounded flex items-center justify-center hover:scale-105 transition-transform"
+                >
+                  <span className="mr-2 text-lg">Pay with Stripe</span>
+                  <BsStripe size={30} />
+                </button>
+              </>
+            ) : (
+              <p className="text-center text-red-500">
+                You cannot pay for your own profile.
+              </p>
+            )}
               
             </div>
             <div className="w-full px-3">
