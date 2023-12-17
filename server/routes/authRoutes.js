@@ -1,13 +1,15 @@
 const express=require("express");
 const router=express.Router();
-const {signup,signin,signout}=require("../controllers/authControllers");
+const {signup,signin,google,signout}=require("../controllers/authControllers");
 const {updateProfile,deleteAccount,getAllUsers,
-singleUserDataid,stripePayment,razorpayPayment,getMyWorkers,allWorkdersData}=require("../controllers/userControllers");
+singleUserDataid,stripePayment,razorpayPayment,
+getMyWorkers,allWorkdersData}=require("../controllers/userControllers");
 const verifyToken=require('../utils/verifyToken');
 
 
 router.post('/signup',signup);
 router.post('/signin',signin);
+router.post('/oauth',google);
 router.get('/signout',signout);
 router.put('/update/:id',verifyToken,updateProfile); 
 router.delete('/deleteaccount/:id',verifyToken,deleteAccount); 

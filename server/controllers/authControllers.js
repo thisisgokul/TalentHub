@@ -40,6 +40,29 @@ const signin= async(req,res,next)=>{
 
 }
 
+const google = async (req, res, next) => {
+    const { name, email, password } = req.body;
+    try {
+      const existingUser = await User.findOne({ email });
+      if (!existingUser) {
+        const userDoc = await User.create({
+          name,
+          email,
+          password
+        });
+        generateToken(res, userDoc._id);
+        const { password: hashedPassword, ...rest } = userDoc._doc;
+        res.status(200).json(rest);
+      } else {
+        generateToken(res, existingUser._id);
+  
+        res.json(existingUser);
+      }
+    } catch (error) {
+      next(customError(500, 'An error occurred during signup'));
+    }
+  };
+
 
 const signout=async(req,res)=>{
     try {
@@ -49,4 +72,4 @@ const signout=async(req,res)=>{
     }
 }
  
-module.exports ={ signup,signin,signout};
+module.exports ={ signup,signin,signout,google};
