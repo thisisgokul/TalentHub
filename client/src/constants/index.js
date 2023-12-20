@@ -13,7 +13,7 @@ export const features=[
     },
     {
         name:"meetings",
-        description:"Learn how to transition from a chat to a call for deeper collaboration, manage calendar invites, join a meeting directly in workfusion.",
+        description:"Learn how to transition from a chat to a call for deeper collaboration join a meeting directly in workfusion.",
         icon:<HiUserGroup size={23}/>
     }, {
         name:"Tips and tricks",

@@ -27,7 +27,7 @@ const Features = () => {
       <img src={bottomImg} alt="" />
       <div className="my-10 padding-x flex">
         <h2 className="text-lg font-montserrat font-medium">
-          Follow WorkFusion
+          Follow TalentHub
         </h2>
         {socialMedia.map((media, index) => (
           <div className="px-4 mt-1 text-xl" key={index}>

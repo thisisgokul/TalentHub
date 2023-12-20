@@ -11,7 +11,7 @@ const Nav = () => {
         </a>
         <span className="sm:hidden">
           <Link to={"/signup"}>
-            <button className="border-coral-blue text-secondary border-2 px-4 py-2 rounded-xl">
+            <button className="border-coral-blue font-bold text-secondary border-2 px-4 py-2 rounded-xl">
               Sign Up
             </button>
           </Link>

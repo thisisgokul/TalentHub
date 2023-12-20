@@ -45,9 +45,11 @@ const Hero = () => {
                 place.
               </p>
               <div className="mt-6 sm:hidden">
+              <Link to={"/signin"}>
                 <button className="mx-2 bg-white px-12 text-secondary font-medium py-1 border-2 border-coral-blue">
                   Sign In
                 </button>
+                </Link>
                 <Link to={"/signup"}>
                   <button className="py-1 px-12 border-2 bg-secondary text-primary font-medium">
                     sign Up

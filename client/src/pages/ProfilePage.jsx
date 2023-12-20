@@ -19,6 +19,7 @@ import {
 } from "../redux/userSlice";
 import DeleteBox from "../compoents/DeleteBox";
 import axios from "axios";
+import Footer from "../compoents/Footer";
 
 const ProfilePage = () => {
   const { currentUser, loading } = useSelector((state) => state.user);
@@ -165,6 +166,7 @@ const ProfilePage = () => {
           </div>
         </div>
       )}
+      <Footer/>
     </section>
   );
 };

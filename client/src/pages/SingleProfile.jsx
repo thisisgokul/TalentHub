@@ -10,6 +10,7 @@ import Typewriter from "typewriter-effect";
 import { loadStripe } from "@stripe/stripe-js";
 import logo2 from "../assets/logo2.png";
 import {  useSelector } from "react-redux";
+import Footer from "../compoents/Footer";
 
 const SingleProfile = () => {
   const { id } = useParams();
@@ -204,6 +205,7 @@ const handleStripePayment = async () => {
           </div>
         </div>
       )}
+      <Footer/>
     </div>
   );
 };

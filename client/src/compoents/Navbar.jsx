@@ -26,7 +26,7 @@ const Navbar = () => {
     { name: "Home", destination: "index", route: "/", current: false },
     { name: "Profile", destination: "profile", route: "/profile", current: false },
     { name: "My-workers", destination: "myworkers", route: "/myworkers", current: false },
-    { name: "Workers", destination: "workers", route: "/workers", current: false },
+   
   ];
 
   const currentPath = location.pathname;

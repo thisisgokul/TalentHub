@@ -8,10 +8,10 @@ const Instruction = () => {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-indigo-600">
-            New to Workfusion
+            New to TalentHub
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Learn how to use Workfusion
+            Learn how to use TalentHub
           </p>
           <Link to={"/signin"}>
             <button className="mt-6 text-lg leading-8 text-primary bg-secondary py-1 rounded-sm font-medium hover:bg-coral-blue px-10">

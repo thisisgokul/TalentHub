@@ -20,7 +20,7 @@ const Footer = () => {
 
       <div className="text-center mt-8">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} Workfusion. All Rights Reserved.
+          &copy; 2024 TalentHub. All Rights Reserved.
         </p>
       </div>
     </footer>
