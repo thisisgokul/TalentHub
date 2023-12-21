@@ -60,7 +60,7 @@ const handleRazorpayPayment=async()=>{
     const order = response.data;
 
     const options = {
-      key: "rzp_test_hA6EEDEhkYpHEE",
+      key: "",
       amount:  user.serviceCharge,
       currency: "INR",
       name: "TalentHub pvt limited",
