@@ -24,7 +24,7 @@ Get started in no time with these simple steps:
 1. Clone the repository to your local machine:
 
     ```bash
-    git clone <repository-url>
+   git clone https://github.com/thisisgokul/TalentHub.git
     ```
 
 2. Navigate to the client directory, install dependencies, and start the client:
