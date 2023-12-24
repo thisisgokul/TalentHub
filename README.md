@@ -10,6 +10,17 @@ TalentHub, a cutting-edge MERN web application, empowers you to effortlessly hir
 - **Profile Updates:** Keep your information current and showcase your skills.
 - **Video Call Interaction:** Connect with hired workers via video calls after payment.
 
+## Screenshots
+
+Include screenshots of your application here, showcasing its user interface and key features.
+
+![Screenshot 1](client/assets/img1.png)
+![Screenshot 2](client/assets/img2.png)
+![Screenshot 3](client/assets/img3.png)
+![Screenshot 3](client/assets/img4.png)
+![Screenshot 3](client/assets/img5.png)
+  
+
 ## Getting Started
 
 Get started in no time with these simple steps:
