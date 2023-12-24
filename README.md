@@ -12,13 +12,36 @@ TalentHub, a cutting-edge MERN web application, empowers you to effortlessly hir
 
 ## Screenshots
 
-Include screenshots of your application here, showcasing its user interface and key features.
+### 1. Homepage with Search and Filter
 
-![Screenshot 1](client/assets/img1.png)
-![Screenshot 2](client/assets/img2.png)
-![Screenshot 3](client/assets/img3.png)
-![Screenshot 3](client/assets/img4.png)
-![Screenshot 3](client/assets/img5.png)
+![Homepage](client/src/assets/screenshots/img1.png)
+
+- The homepage provides options for searching and filtering workers.
+
+### 2. Account and Account Settings Management
+
+![Account Management](client/src/assets/screenshots/img2.png)
+
+- Access your account and manage settings with ease.
+
+### 3. Online Workers
+
+![Online Workers](client/src/assets/screenshots/img3.png)
+
+- View a list of online workers available for calls.
+
+### 4. Single Worker Profile with Payment Options
+
+![Worker Profile](client/src/assets/screenshots/img4.png)
+
+- Explore a single worker's profile and choose payment options via Stripe and Razorpay.
+
+### 5. Video Call Facility
+
+![Video Call](client/src/assets/screenshots/img5.png)
+
+- Enjoy the video call facility to connect with hired workers seamlessly.
+
   
 
 ## Getting Started
