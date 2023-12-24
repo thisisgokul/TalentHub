@@ -12,11 +12,7 @@ const socketServer= (socket,io)=>{
         io.emit("get-socketid",socket.id);
     });
 
-    // socket disconnect
-     socket.on("disconnect",()=>{
-        onlineUsers=onlineUsers.filter((user)=>user.socketId!==socket.id);
-        io.emit("get-online-users",onlineUsers);
-    })
+   
 
      // socket disconnect
      socket.on("disconnect",()=>{
