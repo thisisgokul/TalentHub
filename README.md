@@ -20,7 +20,7 @@ TalentHub, a cutting-edge MERN web application, empowers you to effortlessly hir
 
 ### 2. Account and Account Settings Management
 
-![Account Management](client/src/assets/screenshots/img2.png)
+![Account Management](client/src/assets/screenshots/img22.png)
 
 - Access your account and manage settings with ease.
 
