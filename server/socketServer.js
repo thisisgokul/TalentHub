@@ -14,7 +14,7 @@ const socketServer= (socket,io)=>{
 
    
 
-     // socket disconnect
+     // socket disconnects
      socket.on("disconnect",()=>{
         onlineUsers=onlineUsers.filter((user)=>user.socketId!==socket.id);
         io.emit("get-online-users",onlineUsers);
