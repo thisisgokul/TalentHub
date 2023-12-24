@@ -28,7 +28,7 @@ TalentHub, a cutting-edge MERN web application, empowers you to effortlessly hir
 
 ![Online Workers](client/src/assets/screenshots/img3.png)
 
-- View a list of online workers available for hire.
+- View a list of online workers available for calls.
 
 ### 4. Single Worker Profile with Payment Options
 
