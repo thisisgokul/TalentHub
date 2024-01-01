@@ -7,14 +7,16 @@ TalentHub, a cutting-edge MERN web application, empowers you to effortlessly hir
 - **Hire Workers:** Browse and hire skilled professionals with ease.
 - **Easy Payments:** Effortless transactions through Stripe and Razorpay.
 - **Search and Filter:** Find the perfect match using our advanced search and filter options.
-- **Profile Updates:** Keep your information current and showcase your skills.
+- **Profile Updates:** Keep your information current, update your personal information account deactivation and many more...
 - **Video Call Interaction:** Connect with hired workers via video calls after payment.
-
+- **Call Notifications:** Receive notifications for incoming video calls.
+- **Accept/Reject Options:** Choose to accept or reject incoming calls.
+- **Caller Details:** View details of the caller before accepting the call.
 ## Screenshots
 
 ### 1. Homepage with Search and Filter
 
-![Homepage](client/src/assets/screenshots/img1.png)
+![Homepage](client/src/assets/screenshots/img11.png)
 
 - The homepage provides options for searching and filtering workers.
 
