@@ -79,8 +79,3 @@ Get started in no time with these simple steps:
 
 Now, experience the application running in development mode!
 
-## Contributing
-
-Excited to contribute? Check out our [Contributor's Guide](CONTRIBUTING.md) to get started. We welcome your pull requests and ideas!
-
-Feel free to customize and enhance this platform based on your unique needs! Happy hiring!

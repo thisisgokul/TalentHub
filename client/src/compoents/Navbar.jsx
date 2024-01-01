@@ -7,8 +7,9 @@ import { signout } from "../redux/userSlice";
 import logo2 from "../assets/logo2.png";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import SocketContext from "../socket/SocketContext";
 
-const Navbar = () => {
+const Navbar = ({socket}) => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const location = useLocation();
@@ -17,10 +18,12 @@ const Navbar = () => {
     try {
       await axios.get("/signout");
       dispatch(signout());
+      socket.emit('userOffline', currentUser._id);
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   const navigation = [
     { name: "Home", destination: "index", route: "/", current: false },
@@ -187,4 +190,12 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const NavbarSocket = (props) => {
+  return (
+    <SocketContext.Consumer>
+      {(socket) => <Navbar {...props} socket={socket} />}
+    </SocketContext.Consumer>
+  );
+};
+
+export default NavbarSocket

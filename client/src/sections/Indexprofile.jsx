@@ -3,9 +3,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../redux/userSlice";
 import { Link } from "react-router-dom";
+import SocketContext from "../socket/SocketContext";
 
 
-const Indexprofile = () => {
+const Indexprofile = ({socket}) => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
  
@@ -13,6 +14,7 @@ const Indexprofile = () => {
   const handleSignout = async () => {
     try {
       await axios.get("/signout");
+      socket.emit('userOffline', currentUser._id);
       dispatch(signout());
     } catch (error) {
       console.log(error);
@@ -51,4 +53,12 @@ const Indexprofile = () => {
   );
 };
 
-export default Indexprofile;
+const IndexprofileSocket = (props) => {
+  return (
+    <SocketContext.Consumer>
+      {(socket) => <Indexprofile {...props} socket={socket} />}
+    </SocketContext.Consumer>
+  );
+};
+
+export default IndexprofileSocket
